@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0807">
+<link rel="icon" href="logo.png">
+<title>Cardápio Caverna Bar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=Barlow+Semi+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: catálogo de coluna única para celular, como uma parede de pedra iluminada por tocha; abas fixas, destaques em faixa rolável, fichas com ilustração */
+:root {
+  --rock: #0a0807;        /* fundo: preto do logo */
+  --rock-2: #1a130e;      /* fichas: preto quente */
+  --rock-3: #33261b;      /* linhas e bordas */
+  --chalk: #e8d5bb;       /* texto principal: bege areia do logo */
+  --dust: #ab947a;        /* texto secundário */
+  --torch: #e8952e;       /* destaque: âmbar */
+  --copper: #c06a3a;      /* cobre: combos e selos */
+  --ember: #b8442c;       /* vermelho tijolo: alerta +18 */
+  --pine: #9c7448;        /* madeira de palete */
+  --pine-dark: #3b2a1c;   /* fresta entre as ripas */
+  --display: "Rubik Dirt", "Impact", system-ui, sans-serif;
+  --body: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--rock);
+  color: var(--chalk);
+  font: 400 17px/1.45 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--rock);
+}
+.wrap {
+  max-width: 600px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Boca da caverna */
+.hero {
+  position: relative; overflow: hidden; text-align: center;
+  background:
+    radial-gradient(60% 55% at 50% 48%, rgba(232,149,46,.22), transparent 70%),
+    radial-gradient(120% 60% at 50% 120%, rgba(184,68,44,.28), transparent 70%),
+    var(--rock);
+}
+.hero .inner { padding-block: 22px 16px; display: grid; justify-items: center; }
+.bulbs { position: absolute; inset: 0 0 auto 0; width: 100%; height: auto; max-width: 100%; pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .b1 { animation: hum 3.2s ease-in-out infinite; } .b2 { animation: hum 4.1s ease-in-out infinite .6s; }
+  @keyframes hum { 0%,100% { opacity: 1 } 45% { opacity: .82 } 50% { opacity: .95 } }
+}
+.hero .inner { position: relative; }
+.logo { width: min(46vw, 230px); height: auto; max-width: 100%; display: block; filter: drop-shadow(0 0 22px rgba(232,149,46,.25)); }
+.tag { margin: 14px 0 0; color: var(--dust); font-size: 13px; letter-spacing: .18em; text-transform: uppercase; }
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes flicker { 0%,100% { background-size: 100% 100%, 100% 100% } 50% { background-size: 108% 106%, 100% 100% } }
+  html { scroll-behavior: smooth; }
+}
+
+/* Abas */
+nav.tabs {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: rgba(10,8,7,.95); backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--rock-3);
+}
+nav.tabs .wrap { display: flex; gap: 8px; overflow-x: auto; padding-block: 10px; scrollbar-width: none; }
+nav.tabs .wrap::-webkit-scrollbar { display: none; }
+nav.tabs a {
+  flex: none; text-decoration: none; color: var(--chalk);
+  font-weight: 600; font-size: 15px; letter-spacing: .04em;
+  padding: 0 16px; min-height: 44px; display: inline-flex; align-items: center;
+  border-radius: 999px; border: 1px solid var(--rock-3);
+}
+nav.tabs a.on { background: var(--torch); color: var(--rock); border-color: var(--torch); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--torch); outline-offset: 2px; }
+
+main { padding-block: 4px 28px; }
+section { padding-top: 30px; scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 60px); }
+section > h2 {
+  font: 400 32px/1 var(--display); color: var(--torch); margin: 0;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+}
+section > h2 .sub { font: 600 13px/1 var(--body); color: var(--copper); letter-spacing: .14em; text-transform: uppercase; }
+.note { color: var(--dust); font-size: 15px; margin: 6px 0 0; max-width: 60ch; }
+
+/* Destaques */
+.rail { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 14px 0 6px; margin-top: 2px; scrollbar-width: thin; }
+.spot {
+  flex: 0 0 78%; max-width: 300px; scroll-snap-align: start;
+  background: linear-gradient(160deg, var(--rock-2), var(--rock) 80%);
+  border: 1px solid var(--rock-3); border-radius: 16px; padding: 16px;
+  display: grid; grid-template-columns: 1fr 72px; gap: 8px; align-items: end;
+  text-decoration: none; color: inherit; position: relative; overflow: hidden;
+}
+.spot::after { content: ""; position: absolute; inset: auto -30% -60% 30%; height: 120%; background: radial-gradient(closest-side, rgba(232,149,46,.18), transparent); pointer-events: none; }
+.spot .k { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--copper); }
+.spot .t { font: 400 26px/1 var(--display); margin: 6px 0 8px; }
+.spot .p { font: 500 17px/1 var(--mono); }
+.spot svg { width: 72px; height: 110px; }
+
+/* Fichas de produto */
+.list { display: grid; gap: 12px; margin-top: 14px; }
+.card {
+  display: grid; grid-template-columns: 76px 1fr; gap: 14px;
+  background: var(--rock-2); border: 1px solid var(--rock-3); border-radius: 14px; padding: 14px;
+}
+.card .art {
+  display: grid; place-items: end center; border-radius: 10px; min-height: 120px; overflow: hidden;
+  background:
+    radial-gradient(80% 60% at 50% 100%, rgba(232,149,46,.35), transparent 70%),
+    linear-gradient(rgba(10,8,7,.55), rgba(10,8,7,.55)),
+    repeating-linear-gradient(180deg, var(--pine) 0 22px, var(--pine-dark) 22px 25px);
+  box-shadow: inset 0 -3px 0 rgba(232,149,46,.55);
+}
+.card .art svg { width: 66px; height: 120px; }
+.card .body { min-width: 0; display: grid; gap: 6px; align-content: start; }
+.head { display: flex; align-items: baseline; gap: 10px; }
+.code { font: 500 12px/1 var(--mono); color: var(--dust); border: 1px solid var(--rock-3); border-radius: 4px; padding: 3px 5px; flex: none; }
+.name { font-weight: 700; font-size: 20px; line-height: 1.15; min-width: 0; flex: 1; text-wrap: balance; }
+.price { font: 500 19px/1 var(--mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.price .rs { font-size: .68em; color: var(--dust); margin-right: 2px; }
+.old { display: block; text-align: right; font: 500 13px/1 var(--mono); color: var(--dust); text-decoration: line-through; margin-bottom: 4px; }
+.desc { color: var(--dust); font-size: 15.5px; margin: 0; }
+.specs { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 2px 0 0; padding: 0; list-style: none; font-size: 14px; }
+.specs li { color: var(--chalk); }
+.specs li::before { content: "◆"; color: var(--copper); font-size: 9px; margin-right: 6px; vertical-align: 2px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; border: 1px solid var(--rock-3); color: var(--dust); }
+.chip.hot { border-color: var(--torch); color: var(--torch); }
+.chip.prov { border-style: dashed; }
+.save { color: var(--copper); font-size: 14px; font-weight: 600; }
+
+.avail { display: inline-block; margin-top: 10px; font-size: 14px; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
+.avail.yes { background: rgba(232,149,46,.15); color: var(--torch); }
+.avail.no { background: var(--rock-2); color: var(--dust); border: 1px solid var(--rock-3); }
+
+.how { margin-top: 30px; border: 1px dashed var(--rock-3); border-radius: 14px; padding: 14px 16px; display: grid; gap: 4px; }
+.how b { font: 400 22px/1 var(--display); color: var(--torch); }
+.how p { margin: 0; color: var(--dust); font-size: 15.5px; }
+
+.top {
+  position: fixed; z-index: 6;
+  right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--rock-3);
+  background: var(--rock-2); color: var(--torch); font-size: 22px; line-height: 1;
+  box-shadow: 0 6px 18px rgba(0,0,0,.5); cursor: pointer;
+  opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .2s, transform .2s;
+}
+.top.show { opacity: 1; transform: none; pointer-events: auto; }
+footer { border-top: 1px solid var(--rock-3); margin-top: 26px; background: var(--rock-2); }
+footer .wrap { padding-block: 22px 30px; display: grid; gap: 16px; }
+.legal {
+  border: 2px solid var(--ember); border-radius: 10px; padding: 14px; text-align: center;
+  font-weight: 700; font-size: 16px; letter-spacing: .03em; text-transform: uppercase;
+}
+.legal .big { display: block; font: 400 36px/1 var(--display); color: var(--ember); margin-bottom: 6px; }
+.legal .small { font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--dust); margin-top: 6px; }
+.info { display: grid; gap: 6px; color: var(--dust); font-size: 15px; }
+.info b { color: var(--chalk); font-weight: 600; }
+.draft { font-size: 13px; color: var(--dust); border-top: 1px dashed var(--rock-3); padding-top: 12px; margin: 0; }
+</style>
+<link rel="stylesheet" href="chamar.css">
+</head>
+<body>
+
+
+<header class="hero">
+  <svg class="bulbs" viewBox="0 0 400 120" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
+    <defs><radialGradient id="bulbGlow"><stop offset="0" stop-color="#ffcf7a" stop-opacity=".9"/><stop offset=".35" stop-color="#e8952e" stop-opacity=".35"/><stop offset="1" stop-color="#e8952e" stop-opacity="0"/></radialGradient></defs>
+    <g class="b b1"><line x1="44" y1="0" x2="44" y2="62" stroke="#3a2c20" stroke-width="2" stroke-dasharray="4 2"/><rect x="39" y="62" width="10" height="9" rx="1.5" fill="#5b4632"/><circle cx="44" cy="84" r="32" fill="url(#bulbGlow)"/><path d="M38 71h12c0 6 5 8 5 15a11 11 0 0 1-22 0c0-7 5-9 5-15Z" fill="#f7c66b" opacity=".85"/><path d="M41 76l3 10 3-10" stroke="#fff3cf" stroke-width="1.2" fill="none"/></g>
+    <g class="b b2"><line x1="356" y1="0" x2="356" y2="40" stroke="#3a2c20" stroke-width="2" stroke-dasharray="4 2"/><rect x="351" y="40" width="10" height="9" rx="1.5" fill="#5b4632"/><circle cx="356" cy="62" r="32" fill="url(#bulbGlow)"/><path d="M350 49h12c0 6 5 8 5 15a11 11 0 0 1-22 0c0-7 5-9 5-15Z" fill="#f7c66b" opacity=".85"/><path d="M353 54l3 10 3-10" stroke="#fff3cf" stroke-width="1.2" fill="none"/></g>
+  </svg>
+  <div class="inner">
+    <img class="logo" alt="Caverna" src="logo.webp">
+    <p class="tag">Bar · Cosmópolis</p>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Categorias">
+  <div class="wrap" id="tabs"></div>
+</nav>
+
+<main class="wrap" id="menu"></main>
+
+<button class="top" id="toTop" type="button" aria-label="Voltar ao topo">↑</button>
+
+<footer>
+  <div class="wrap">
+    <div class="legal" role="note">
+      <span class="big">+18</span>
+      É proibida a venda de bebidas alcoólicas a menores de 18 anos.
+      <div class="small">Pode ser pedido documento com foto. Se beber, não dirija.</div>
+    </div>
+    <div class="info">
+      <div><b>Endereço</b> · R. José Kalil Aun, 530 · Vila Nova, Cosmópolis-SP</div>
+      <div><b>Funcionamento</b> · Todos os dias (copões de sexta a domingo)</div>
+      <div><b>Pagamento</b> · Pix, débito, crédito e dinheiro</div>
+    </div>
+    <p class="draft">Versão de pré-inauguração. Itens marcados com borda tracejada estão com preço provisório.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // ---------- Ilustrações (SVG gerado por tipo de embalagem) ----------
+  var uid = 0;
+  function bottle(o) {
+    // garrafa 600 ml ou long neck: o.glass, o.label, o.band, o.cap, o.slim
+    var w = o.slim ? 26 : 34, x = (66 - w) / 2, neckW = o.slim ? 10 : 12, nx = (66 - neckW) / 2;
+    var top = o.slim ? 8 : 4, sh = o.slim ? 52 : 46;
+    return '<svg viewBox="0 0 66 120" aria-hidden="true">' +
+      '<rect x="' + (nx - 1) + '" y="' + top + '" width="' + (neckW + 2) + '" height="6" rx="1.5" fill="' + (o.cap || '#c9a54a') + '"/>' +
+      '<path fill="' + o.glass + '" d="M' + nx + ' ' + (top + 6) + 'h' + neckW + 'v' + (o.slim ? 22 : 16) + 'c0 8 ' + ((w - neckW) / 2) + ' 10 ' + ((w - neckW) / 2) + ' 20V112a4 4 0 0 1-4 4H' + (x + 4) + 'a4 4 0 0 1-4-4V' + (top + (o.slim ? 48 : 42)) + 'c0-10 ' + ((w - neckW) / 2) + '-12 ' + ((w - neckW) / 2) + '-20Z"/>' +
+      '<rect x="' + x + '" y="' + (sh + 18) + '" width="' + w + '" height="' + (o.slim ? 26 : 30) + '" fill="' + o.label + '"/>' +
+      '<rect x="' + x + '" y="' + (sh + 18 + (o.slim ? 18 : 21)) + '" width="' + w + '" height="5" fill="' + o.band + '"/>' +
+      (o.star ? '<path fill="' + o.star + '" d="M33 ' + (sh + 23) + 'l2.4 5 5.4.6-4 3.7 1.1 5.3-4.9-2.8-4.9 2.8 1.1-5.3-4-3.7 5.4-.6z"/>' : '<circle cx="33" cy="' + (sh + 29) + '" r="5" fill="none" stroke="' + o.band + '" stroke-width="2"/>') +
+      '<rect x="' + (x + 4) + '" y="' + (top + 30) + '" width="3" height="60" rx="1.5" fill="#fff" opacity=".14"/>' +
+      '</svg>';
+  }
+  function cup(o) {
+    // copão 700 ml com tampa e canudo: o.top, o.bottom (degradê do drink), o.ice
+    var id = 'g' + (++uid);
+    return '<svg viewBox="0 0 66 120" aria-hidden="true"><defs><linearGradient id="' + id + '" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0" stop-color="' + o.top + '"/><stop offset="1" stop-color="' + o.bottom + '"/></linearGradient></defs>' +
+      '<path d="M40 2l-6 30" stroke="#d9cbb3" stroke-width="4" stroke-linecap="round"/>' +
+      '<rect x="12" y="28" width="42" height="7" rx="3" fill="#d9cbb3" opacity=".9"/>' +
+      '<path d="M14 35h38l-5 79a4 4 0 0 1-4 4H23a4 4 0 0 1-4-4Z" fill="#efe6d6" opacity=".18"/>' +
+      '<path d="M15.5 44h35l-4.4 69a3 3 0 0 1-3 3H22.9a3 3 0 0 1-3-3Z" fill="url(#' + id + ')"/>' +
+      '<g fill="' + o.ice + '" opacity=".75"><rect x="21" y="48" width="11" height="10" rx="2" transform="rotate(-12 26 53)"/><rect x="34" y="52" width="10" height="10" rx="2" transform="rotate(14 39 57)"/><rect x="25" y="64" width="10" height="9" rx="2" transform="rotate(6 30 68)"/></g>' +
+      '<rect x="18" y="40" width="3" height="66" rx="1.5" fill="#fff" opacity=".18"/></svg>';
+  }
+  function pet(o) {
+    // água / refrigerante em PET: o.liquid, o.label, o.cap, o.big
+    var w = o.big ? 36 : 26, x = (66 - w) / 2, top = o.big ? 6 : 26;
+    return '<svg viewBox="0 0 66 120" aria-hidden="true">' +
+      '<rect x="27" y="' + top + '" width="12" height="7" rx="2" fill="' + o.cap + '"/>' +
+      '<path fill="' + o.liquid + '" d="M28 ' + (top + 7) + 'h10c0 10 ' + ((w - 10) / 2) + ' 12 ' + ((w - 10) / 2) + ' 22V112a4 4 0 0 1-4 4H' + (x + 4) + 'a4 4 0 0 1-4-4V' + (top + 29) + 'c0-10 ' + ((w - 10) / 2) + '-12 ' + ((w - 10) / 2) + '-22Z"/>' +
+      '<rect x="' + x + '" y="' + (top + (o.big ? 46 : 40)) + '" width="' + w + '" height="' + (o.big ? 26 : 20) + '" fill="' + o.label + '"/>' +
+      '<rect x="' + (x + 4) + '" y="' + (top + 30) + '" width="3" height="' + (o.big ? 70 : 46) + '" rx="1.5" fill="#fff" opacity=".22"/></svg>';
+  }
+  function bucket() {
+    // balde com 5 long necks
+    var necks = '';
+    [10, 20, 30, 40, 50].forEach(function (x, i) {
+      var y = i % 2 ? 22 : 16;
+      necks += '<rect x="' + (x - 3) + '" y="' + (y - 4) + '" width="8" height="5" rx="1" fill="#c9a54a"/><rect x="' + (x - 2) + '" y="' + y + '" width="6" height="40" fill="#1f5a2a"/>';
+    });
+    return '<svg viewBox="0 0 66 120" aria-hidden="true">' + necks +
+      '<path d="M4 50h58l-6 62a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4Z" fill="#8a8f96"/>' +
+      '<rect x="2" y="46" width="62" height="8" rx="3" fill="#b5bac1"/>' +
+      '<g fill="#efe6d6" opacity=".55"><rect x="8" y="40" width="9" height="8" rx="2"/><rect x="28" y="42" width="9" height="7" rx="2"/><rect x="48" y="39" width="9" height="8" rx="2"/></g>' +
+      '<rect x="14" y="66" width="38" height="22" rx="3" fill="#15120f" opacity=".35"/>' +
+      '<text x="33" y="82" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#efe6d6">x5</text></svg>';
+  }
+  function trio() {
+    var b = '';
+    [[8, '#5a3210', '#efe6d6'], [24, '#1f5a2a', '#f0efe6'], [40, '#5a3210', '#b0242b']].forEach(function (c) {
+      b += '<g transform="translate(' + c[0] + ' ' + (c[0] === 24 ? 0 : 10) + ')"><rect x="5" y="4" width="8" height="5" rx="1" fill="#c9a54a"/><path fill="' + c[1] + '" d="M5 9h8v14c0 6 5 7 5 13v72a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3V36c0-6 5-7 5-13Z"/><rect x="0" y="58" width="18" height="18" fill="' + c[2] + '"/></g>';
+    });
+    return '<svg viewBox="0 0 66 120" aria-hidden="true">' + b + '</svg>';
+  }
+  function duo() {
+    return '<svg viewBox="0 0 66 120" aria-hidden="true"><g transform="translate(-12 4) scale(.82)">' + cup({ top: '#ff7a8a', bottom: '#b23a7a', ice: '#ffd2dc' }).replace(/^<svg[^>]*>|<\/svg>$/g, '') +
+      '</g><g transform="translate(22 20) scale(.82)">' + cup({ top: '#7fd6c2', bottom: '#2b8c8a', ice: '#d8fff4' }).replace(/^<svg[^>]*>|<\/svg>$/g, '') + '</g></svg>';
+  }
+
+  var art = {
+    original: bottle({ glass: '#5a3210', label: '#efe6d6', band: '#b8862b' }),
+    heineken: bottle({ glass: '#1f5a2a', label: '#f0efe6', band: '#1f5a2a', star: '#c8202f', cap: '#c8c8c8' }),
+    amstel: bottle({ glass: '#5a3210', label: '#b0242b', band: '#efe6d6' }),
+    ln: bottle({ glass: '#1f5a2a', label: '#f0efe6', band: '#1f5a2a', star: '#c8202f', cap: '#c8c8c8', slim: true }),
+    gin: cup({ top: '#ff7a8a', bottom: '#b23a7a', ice: '#ffd2dc' }),
+    whisky: cup({ top: '#f3c25b', bottom: '#a8601c', ice: '#fff6e0' }),
+    agua: pet({ liquid: '#9cc7dd', label: '#2b6c99', cap: '#2b6c99' }),
+    coca: pet({ liquid: '#2a1610', label: '#c8202f', cap: '#c8202f', big: true }),
+    balde: bucket(), trio: trio(), duo: duo()
+  };
+
+  // ---------- Catálogo ----------
+  // prov: preço ainda não confirmado pelo Vinicius
+  var cats = [
+    { id: 'cervejas', tab: 'Cervejas 600ml', title: 'Cervejas', sub: '600 ml · garrafa', note: 'Garrafa retornável, servida trincando, com copo americano para a mesa.', items: [
+      { code: 'C1', name: 'Original', price: 15, art: 'original', desc: 'Puro malte com corpo médio e amargor leve. A clássica de boteco, que vai bem com qualquer petisco.', specs: ['Puro malte', 'Pilsen', 'Para a mesa toda'] },
+      { code: 'C2', name: 'Heineken', price: 15, art: 'heineken', desc: 'Lager puro malte de origem holandesa, com final seco e refrescante.', specs: ['Puro malte', 'Lager', 'Garrafa verde'], chips: [['hot', 'Destaque']] },
+      { code: 'C3', name: 'Amstel', price: 15, art: 'amstel', desc: 'Lager leve e fácil de beber, para quem vai ficar a noite inteira.', specs: ['Lager', 'Leve'] }
+    ] },
+    { id: 'longneck', tab: 'Long neck', title: 'Long neck', sub: '330 ml', note: 'Gelada no ponto, direto do gargalo.', items: [
+      { code: 'L1', name: 'Heineken long neck', price: 9.9, art: 'ln', desc: 'A mesma Heineken em garrafa individual. Boa para quem prefere não dividir.', specs: ['Puro malte', '330 ml'] }
+    ] },
+    { id: 'copoes', tab: 'Copões', title: 'Copões', sub: '700 ml · com tampa', avail: true, note: 'Montados na hora, no copo de 700 ml com tampa e canudo de papel.', items: [
+      { code: 'P1', name: 'Copão de Gin', price: 25, art: 'gin', desc: 'Gin, energético e gelo saborizado. O gelo vai derretendo e o sabor muda até o último gole.', specs: ['Gin', 'Energético', 'Gelo saborizado'], chips: [['hot', 'O mais pedido']] },
+      { code: 'P2', name: 'Copão de Whisky', price: 37, art: 'whisky', desc: 'Whisky Black Label com energético e gelo de coco. Encorpado, gelado e levemente adocicado.', specs: ['Black Label', 'Energético', 'Gelo de coco'], chips: [['', 'Premium']] }
+    ] },
+    { id: 'combos', tab: 'Combos', title: 'Combos', sub: 'para a mesa', note: 'Pague menos pedindo junto.', items: [
+      { code: 'K1', name: 'Balde Long Neck', price: 45, from: 49.5, art: 'balde', desc: '5 Heineken long neck no balde com gelo.', specs: ['5 × 330 ml', 'Balde com gelo'], prov: true },
+      { code: 'K2', name: 'Trio 600', price: 42, from: 45, art: 'trio', desc: '3 cervejas 600 ml à sua escolha (Original, Heineken ou Amstel), podendo misturar.', specs: ['3 × 600 ml', 'Mistura liberada'], prov: true },
+      { code: 'K3', name: 'Dupla de Copão', price: 45, from: 50, art: 'duo', desc: '2 copões de gin, cada um com o gelo saborizado que quiser. Só de sexta a domingo.', specs: ['2 × 700 ml', 'Sex a dom'], prov: true }
+    ] },
+    { id: 'semalcool', tab: 'Sem álcool', title: 'Sem álcool', sub: '', note: 'Para quem está dirigindo ou só quer se refrescar.', items: [
+      { code: 'S1', name: 'Água mineral', price: 5, art: 'agua', desc: 'Garrafa de 500 ml, gelada.', specs: ['500 ml'], prov: true },
+      { code: 'S2', name: 'Coca-Cola 2 L', price: 16, art: 'coca', desc: 'Garrafa de 2 litros para dividir na mesa, com copos.', specs: ['2 L', 'Para dividir'], prov: true }
+    ] }
+  ];
+  var spots = [
+    { k: 'O mais pedido', t: 'Copão de Gin', p: 25, art: 'gin', href: '#copoes' },
+    { k: 'Combo', t: 'Balde Long Neck', p: 45, art: 'balde', href: '#combos' },
+    { k: 'Trincando', t: 'Heineken 600', p: 15, art: 'heineken', href: '#cervejas' },
+    { k: 'Premium', t: 'Copão de Whisky', p: 37, art: 'whisky', href: '#copoes' }
+  ];
+
+  function brl(v) { return v.toFixed(2).replace('.', ','); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  var day = new Date().getDay();
+  var weekend = day === 5 || day === 6 || day === 0;
+
+  var html = '<section id="destaques" style="padding-top:22px"><h2>Destaques <span class="sub">da casa</span></h2><div class="rail">';
+  spots.forEach(function (s) {
+    html += '<a class="spot" href="' + s.href + '"><div><div class="k">' + esc(s.k) + '</div><div class="t">' + esc(s.t) + '</div><div class="p"><span class="rs" style="font-size:.7em;color:var(--dust)">R$</span> ' + brl(s.p) + '</div></div>' + art[s.art] + '</a>';
+  });
+  html += '</div></section>';
+
+  cats.forEach(function (c) {
+    html += '<section id="' + c.id + '"><h2>' + esc(c.title) + (c.sub ? ' <span class="sub">' + esc(c.sub) + '</span>' : '') + '</h2>';
+    if (c.avail) html += '<span class="avail ' + (weekend ? 'yes' : 'no') + '">' + (weekend ? '● Saindo hoje' : 'Só de sexta a domingo') + '</span>';
+    if (c.note) html += '<p class="note">' + esc(c.note) + '</p>';
+    html += '<div class="list">';
+    c.items.forEach(function (it) {
+      var chips = (it.chips || []).map(function (ch) { return '<span class="chip ' + ch[0] + '">' + esc(ch[1]) + '</span>'; });
+      if (it.prov) chips.push('<span class="chip prov">Preço provisório</span>');
+      html += '<article class="card"><div class="art">' + art[it.art] + '</div><div class="body">' +
+        '<div class="head"><span class="code">' + it.code + '</span><span class="name">' + esc(it.name) + '</span>' +
+        '<span class="price">' + (it.from ? '<span class="old">' + brl(it.from) + '</span>' : '') + '<span class="rs">R$</span>' + brl(it.price) + '</span></div>' +
+        '<p class="desc">' + esc(it.desc) + '</p>' +
+        (it.specs ? '<ul class="specs">' + it.specs.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul>' : '') +
+        (it.from ? '<div class="save">Economia de R$ ' + brl(it.from - it.price) + '</div>' : '') +
+        (chips.length ? '<div class="chips">' + chips.join('') + '</div>' : '') +
+        '</div></article>';
+    });
+    html += '</div></section>';
+  });
+  html += '<div class="how"><b>Como pedir</b><p>Chame no balcão e diga o código do item (ex.: P1) e o número da sua mesa. A conta fecha na saída.</p></div>';
+  document.getElementById('menu').innerHTML = html;
+
+  var tabs = [{ id: 'destaques', tab: 'Destaques' }].concat(cats);
+  document.getElementById('tabs').innerHTML = tabs.map(function (c, i) {
+    return '<a href="#' + c.id + '"' + (i === 0 ? ' class="on"' : '') + '>' + esc(c.tab) + '</a>';
+  }).join('');
+
+  // Aba ativa conforme a rolagem
+  var links = [].slice.call(document.querySelectorAll('nav.tabs a'));
+  var secs = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  function mark() {
+    var y = window.scrollY + 100, idx = 0;
+    secs.forEach(function (s, i) { if (s && s.offsetTop <= y) idx = i; });
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) idx = secs.length - 1;
+    links.forEach(function (a, i) {
+      var on = i === idx;
+      if (on !== a.classList.contains('on')) {
+        a.classList.toggle('on', on);
+        if (on) a.parentNode.scrollTo({ left: a.offsetLeft - 16, behavior: 'smooth' });
+      }
+    });
+  }
+  var toTop = document.getElementById('toTop');
+  toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  window.addEventListener('scroll', function () { mark(); toTop.classList.toggle('show', window.scrollY > 600); }, { passive: true });
+  mark();
+})();
+</script>
+
+<div id="chamar" hidden></div>
+<script type="module" src="chamar.js"></script>
+</body>
+</html>

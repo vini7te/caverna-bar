@@ -1,0 +1,42 @@
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+
+/* Barra de chamado (só aparece quando o cardápio é aberto pelo QR de uma mesa: ?mesa=5) */
+body.na-mesa { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+body.na-mesa .top { bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+.chamar-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 8;
+  background: rgba(26,19,14,.97); backdrop-filter: blur(8px); border-top: 1px solid var(--rock-3);
+  padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+}
+.chamar-bar .in { max-width: 600px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+.chamar-bar .mesa { font: 400 26px/1 var(--display); color: var(--torch); white-space: nowrap; }
+.chamar-bar .mesa small { display: block; font: 600 11px/1 var(--body); letter-spacing: .16em; color: var(--dust); margin-bottom: 4px; }
+.chamar-bar .msg { flex: 1; min-width: 0; font-size: 15px; line-height: 1.25; }
+.chamar-bar .msg b { display: block; font-size: 17px; }
+.chamar-bar .msg.chamando b { color: var(--ember); }
+.chamar-bar .msg.a-caminho b { color: var(--torch); }
+.chamar-bar .msg span { color: var(--dust); }
+.cb-btn {
+  font: 700 17px/1 var(--body); letter-spacing: .02em; min-height: 52px; padding: 0 20px; border-radius: 14px;
+  border: 1px solid var(--rock-3); background: var(--rock-2); color: var(--chalk); cursor: pointer; white-space: nowrap;
+}
+.cb-btn.main { background: var(--torch); border-color: var(--torch); color: var(--rock); box-shadow: 0 0 0 5px rgba(232,149,46,.16); }
+.cb-btn:focus-visible { outline: 2px solid var(--torch); outline-offset: 2px; }
+
+.cb-bg { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 20; }
+.cb-sheet {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 21; background: var(--rock-2);
+  border-top: 1px solid var(--rock-3); border-radius: 20px 20px 0 0;
+  padding: 20px max(16px, env(safe-area-inset-right, 0px)) calc(20px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+}
+.cb-sheet .in { max-width: 600px; margin: 0 auto; display: grid; gap: 10px; }
+.cb-sheet h3 { margin: 0 0 4px; font: 400 28px/1 var(--display); color: var(--torch); }
+.cb-sheet .cb-btn { width: 100%; min-height: 58px; font-size: 19px; }
+.cb-sheet .cb-btn.main { min-height: 72px; font: 400 26px/1 var(--display); }
+.cb-sheet .cb-btn.ghost { background: transparent; }
+.cb-toast {
+  position: fixed; left: 16px; right: 16px; bottom: calc(110px + env(safe-area-inset-bottom, 0px)); z-index: 30;
+  background: var(--rock-2); border: 1px solid var(--ember); border-radius: 12px; padding: 12px 14px; font-size: 15px; text-align: center;
+}

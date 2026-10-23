@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function equipe() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/equipe/$(request.auth.uid));
+    }
+
+    // Um documento por mesa: chamados/mesa-5
+    match /chamados/{id} {
+      allow read: if true;
+
+      // Cliente (sem login) abre ou refaz um chamado da própria mesa.
+      // Equipe muda o status para "a-caminho".
+      allow create, update: if
+        request.resource.data.keys().hasOnly(['mesa', 'tipo', 'status', 'desde'])
+        && request.resource.data.mesa is int
+        && request.resource.data.mesa >= 1 && request.resource.data.mesa <= 40
+        && id == 'mesa-' + string(request.resource.data.mesa)
+        && request.resource.data.tipo in ['atendente', 'conta', 'gelo']
+        && (
+          (request.resource.data.status == 'chamando' && request.resource.data.desde == request.time)
+          || (equipe() && request.resource.data.status == 'a-caminho'
+              && request.resource.data.desde == resource.data.desde)
+        );
+
+      // Cliente cancela enquanto ninguém respondeu; equipe marca como atendido.
+      allow delete: if equipe() || resource.data.status == 'chamando';
+    }
+
+    // Lista de quem é da equipe. Só se cria pelo Console do Firebase.
+    match /equipe/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+  }
+}
