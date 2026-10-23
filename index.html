@@ -273,7 +273,53 @@ footer .wrap { padding-block: 22px 30px; display: grid; gap: 16px; }
       '</g><g transform="translate(22 20) scale(.82)">' + cup({ top: '#7fd6c2', bottom: '#2b8c8a', ice: '#d8fff4' }).replace(/^<svg[^>]*>|<\/svg>$/g, '') + '</g></svg>';
   }
 
+  function chopp() {
+    // copo de chopp 500 ml com colarinho
+    return '<svg viewBox="0 0 66 120" aria-hidden="true">' +
+      '<path d="M13 30h40l-4 84a4 4 0 0 1-4 4H21a4 4 0 0 1-4-4Z" fill="#efe6d6" opacity=".18"/>' +
+      '<path d="M15.5 40h35l-3.6 72a3 3 0 0 1-3 3H22.1a3 3 0 0 1-3-3Z" fill="#e8a32e"/>' +
+      '<path d="M15.5 40h35l-.4 8H15.9Z" fill="#f7c66b"/>' +
+      '<path d="M12 33c0-7 6-11 12-9 3-6 15-6 18 0 6-2 12 2 12 9 0 5-4 8-8 8H20c-4 0-8-3-8-8Z" fill="#fbf3e2"/>' +
+      '<g fill="#fff3cf" opacity=".7"><circle cx="27" cy="70" r="1.6"/><circle cx="37" cy="84" r="1.3"/><circle cx="31" cy="98" r="1.5"/><circle cx="40" cy="62" r="1.1"/></g>' +
+      '<rect x="19" y="46" width="3" height="62" rx="1.5" fill="#fff" opacity=".2"/></svg>';
+  }
+  function plate(food) {
+    // prato visto de lado, com a comida por cima
+    return '<svg viewBox="0 0 66 120" aria-hidden="true">' +
+      '<ellipse cx="33" cy="90" rx="31" ry="12" fill="#8a7d6c"/><ellipse cx="33" cy="88" rx="31" ry="12" fill="#d9cbb3"/><ellipse cx="33" cy="88" rx="22" ry="8" fill="#efe6d6"/>' +
+      food + '</svg>';
+  }
+  function dadinho() {
+    var c = '';
+    [[12, 72], [26, 74], [40, 72], [19, 62], [33, 62], [26, 52]].forEach(function (p) {
+      c += '<rect x="' + p[0] + '" y="' + p[1] + '" width="13" height="12" rx="2" fill="#d99a3c"/><rect x="' + p[0] + '" y="' + p[1] + '" width="13" height="4" rx="2" fill="#f2c779"/>';
+    });
+    return plate(c);
+  }
+  function xoripan() {
+    return plate('<path d="M6 78c0-10 12-14 27-14s27 4 27 14c0 4-4 6-8 6H14c-4 0-8-2-8-6Z" fill="#c9853f"/>' +
+      '<rect x="3" y="70" width="60" height="9" rx="4.5" fill="#8a3b1f"/>' +
+      '<path d="M10 68c0-8 10-12 23-12s23 4 23 12Z" fill="#e0a55a"/>' +
+      '<g fill="#5f8a3a"><circle cx="16" cy="72" r="1.5"/><circle cx="28" cy="71" r="1.3"/><circle cx="40" cy="73" r="1.5"/><circle cx="51" cy="71" r="1.3"/></g>');
+  }
+  function guacamole() {
+    return plate('<path d="M14 70h38l-4 16H18Z" fill="#6b4a2f"/>' +
+      '<path d="M15 71c2-10 10-14 18-14s16 4 18 14Z" fill="#7fae3e"/>' +
+      '<g fill="#a9cf6a" opacity=".8"><circle cx="26" cy="64" r="2"/><circle cx="37" cy="62" r="1.6"/></g>' +
+      '<g fill="#e9b860"><path d="M4 84l10-14 4 16Z"/><path d="M48 86l8-17 6 13Z"/><path d="M36 92l8-10 4 11Z"/></g>');
+  }
+  function tabua() {
+    return '<svg viewBox="0 0 66 120" aria-hidden="true">' +
+      '<rect x="2" y="70" width="62" height="20" rx="4" fill="#5b3b22"/><rect x="2" y="66" width="62" height="20" rx="4" fill="#9a6a3c"/>' +
+      '<path d="M8 72h50M8 80h50" stroke="#7d5330" stroke-width="1" opacity=".5"/>' +
+      '<g fill="#f1d27a"><rect x="7" y="58" width="11" height="10" rx="1.5"/><rect x="13" y="50" width="10" height="9" rx="1.5"/></g>' +
+      '<g fill="#a8423a"><circle cx="31" cy="62" r="6"/><circle cx="41" cy="60" r="6"/></g>' +
+      '<g fill="#d97a6e" opacity=".7"><circle cx="31" cy="62" r="1.2"/><circle cx="41" cy="60" r="1.2"/><circle cx="29" cy="59" r="1"/></g>' +
+      '<g fill="#3d4a2a"><circle cx="52" cy="64" r="3"/><circle cx="58" cy="61" r="3"/><circle cx="54" cy="57" r="3"/></g></svg>';
+  }
+
   var art = {
+    chopp: chopp(), dadinho: dadinho(), xoripan: xoripan(), guacamole: guacamole(), tabua: tabua(),
     original: bottle({ glass: '#5a3210', label: '#efe6d6', band: '#b8862b' }),
     heineken: bottle({ glass: '#1f5a2a', label: '#f0efe6', band: '#1f5a2a', star: '#c8202f', cap: '#c8c8c8' }),
     amstel: bottle({ glass: '#5a3210', label: '#b0242b', band: '#efe6d6' }),
@@ -287,7 +333,11 @@ footer .wrap { padding-block: 22px 30px; display: grid; gap: 16px; }
 
   // ---------- Catálogo ----------
   // prov: preço ainda não confirmado pelo Vinicius
+  // sem price: preço ainda não informado, aparece "Consulte"
   var cats = [
+    { id: 'chopp', tab: 'Chopp', title: 'Chopp', sub: '500 ml · copo', note: 'Tirado na hora, com colarinho.', items: [
+      { code: 'H1', name: 'Chopp 500 ml', price: 13.9, art: 'chopp', desc: 'Copo de 500 ml, gelado e com colarinho cremoso.', specs: ['500 ml', 'Copo'], chips: [['hot', 'Novo']] }
+    ] },
     { id: 'cervejas', tab: 'Cervejas 600ml', title: 'Cervejas', sub: '600 ml · garrafa', note: 'Garrafa retornável, servida trincando, com copo americano para a mesa.', items: [
       { code: 'C1', name: 'Original', price: 15, art: 'original', desc: 'Puro malte com corpo médio e amargor leve. A clássica de boteco, que vai bem com qualquer petisco.', specs: ['Puro malte', 'Pilsen', 'Para a mesa toda'] },
       { code: 'C2', name: 'Heineken', price: 15, art: 'heineken', desc: 'Lager puro malte de origem holandesa, com final seco e refrescante.', specs: ['Puro malte', 'Lager', 'Garrafa verde'], chips: [['hot', 'Destaque']] },
@@ -300,6 +350,12 @@ footer .wrap { padding-block: 22px 30px; display: grid; gap: 16px; }
       { code: 'P1', name: 'Copão de Gin', price: 25, art: 'gin', desc: 'Gin, energético e gelo saborizado. O gelo vai derretendo e o sabor muda até o último gole.', specs: ['Gin', 'Energético', 'Gelo saborizado'], chips: [['hot', 'O mais pedido']] },
       { code: 'P2', name: 'Copão de Whisky', price: 37, art: 'whisky', desc: 'Whisky Black Label com energético e gelo de coco. Encorpado, gelado e levemente adocicado.', specs: ['Black Label', 'Energético', 'Gelo de coco'], chips: [['', 'Premium']] }
     ] },
+    { id: 'petiscos', tab: 'Petiscos', title: 'Petiscos', sub: 'para a mesa', note: 'Para acompanhar a bebida. Pergunte no balcão o tamanho da porção.', items: [
+      { code: 'T1', name: 'Dadinho de tapioca', art: 'dadinho', desc: 'Cubinhos de tapioca dourados, crocantes por fora e macios por dentro.', specs: ['Porção', 'Frito'] },
+      { code: 'T2', name: 'Xoripan', art: 'xoripan', desc: 'Linguiça grelhada no pão, no estilo argentino.', specs: ['Sanduíche', 'Grelhado'] },
+      { code: 'T3', name: 'Guacamole', art: 'guacamole', desc: 'Pasta de abacate temperada, para comer com chips.', specs: ['Para dividir'] },
+      { code: 'T4', name: 'Tábua de frios', art: 'tabua', desc: 'Seleção de frios servida na tábua, para beliscar com a turma.', specs: ['Para dividir', 'Tábua'] }
+    ] },
     { id: 'combos', tab: 'Combos', title: 'Combos', sub: 'para a mesa', note: 'Pague menos pedindo junto.', items: [
       { code: 'K1', name: 'Balde Long Neck', price: 45, from: 49.5, art: 'balde', desc: '5 Heineken long neck no balde com gelo.', specs: ['5 × 330 ml', 'Balde com gelo'], prov: true },
       { code: 'K2', name: 'Trio 600', price: 42, from: 45, art: 'trio', desc: '3 cervejas 600 ml à sua escolha (Original, Heineken ou Amstel), podendo misturar.', specs: ['3 × 600 ml', 'Mistura liberada'], prov: true },
@@ -311,6 +367,7 @@ footer .wrap { padding-block: 22px 30px; display: grid; gap: 16px; }
     ] }
   ];
   var spots = [
+    { k: 'Novo', t: 'Chopp 500 ml', p: 13.9, art: 'chopp', href: '#chopp' },
     { k: 'O mais pedido', t: 'Copão de Gin', p: 25, art: 'gin', href: '#copoes' },
     { k: 'Combo', t: 'Balde Long Neck', p: 45, art: 'balde', href: '#combos' },
     { k: 'Trincando', t: 'Heineken 600', p: 15, art: 'heineken', href: '#cervejas' },
@@ -339,7 +396,7 @@ footer .wrap { padding-block: 22px 30px; display: grid; gap: 16px; }
       if (it.prov) chips.push('<span class="chip prov">Preço provisório</span>');
       html += '<article class="card"><div class="art">' + art[it.art] + '</div><div class="body">' +
         '<div class="head"><span class="code">' + it.code + '</span><span class="name">' + esc(it.name) + '</span>' +
-        '<span class="price">' + (it.from ? '<span class="old">' + brl(it.from) + '</span>' : '') + '<span class="rs">R$</span>' + brl(it.price) + '</span></div>' +
+        '<span class="price">' + (it.price == null ? '<span class="rs">Consulte</span>' : (it.from ? '<span class="old">' + brl(it.from) + '</span>' : '') + '<span class="rs">R$</span>' + brl(it.price)) + '</span></div>' +
         '<p class="desc">' + esc(it.desc) + '</p>' +
         (it.specs ? '<ul class="specs">' + it.specs.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul>' : '') +
         (it.from ? '<div class="save">Economia de R$ ' + brl(it.from - it.price) + '</div>' : '') +
