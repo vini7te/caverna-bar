@@ -60,7 +60,7 @@ body::before {
 }
 .hero .inner { position: relative; }
 .logo { width: min(46vw, 230px); height: auto; max-width: 100%; display: block; filter: drop-shadow(0 0 22px rgba(232,149,46,.25)); }
-.tag { margin: 14px 0 0; color: var(--dust); font-size: 13px; letter-spacing: .18em; text-transform: uppercase; }
+.tag { margin: 14px 0 0; max-width: 30ch; color: var(--dust); font-size: 15px; line-height: 1.4; text-align: center; text-wrap: balance; }
 @media (prefers-reduced-motion: no-preference) {
   @keyframes flicker { 0%,100% { background-size: 100% 100%, 100% 100% } 50% { background-size: 108% 106%, 100% 100% } }
   html { scroll-behavior: smooth; }
@@ -181,7 +181,7 @@ footer .wrap { padding-block: 22px 30px; display: grid; gap: 16px; }
   </svg>
   <div class="inner">
     <img class="logo" alt="Caverna" src="logo.webp">
-    <p class="tag">Bar · Cosmópolis</p>
+    <p class="tag">O homem saiu da caverna. A gente trouxe ele de volta! 🍻</p>
   </div>
 </header>
 
