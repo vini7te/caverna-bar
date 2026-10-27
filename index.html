@@ -98,55 +98,65 @@ section > h2 .sub { font: 600 13px/1 var(--body); color: var(--copper); letter-s
 /* Destaques */
 .rail { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 14px 0 6px; margin-top: 2px; scrollbar-width: thin; }
 .spot {
-  flex: 0 0 78%; max-width: 300px; scroll-snap-align: start;
+  flex: 0 0 82%; max-width: 320px; scroll-snap-align: start;
   background: linear-gradient(160deg, var(--rock-2), var(--rock) 80%);
-  border: 1px solid var(--rock-3); border-radius: 16px; padding: 16px;
-  display: grid; grid-template-columns: 1fr 72px; gap: 8px; align-items: end;
+  border: 1px solid var(--rock-3); border-radius: 16px; padding: 14px;
+  display: grid; grid-template-columns: 1fr 96px; gap: 12px; align-items: center;
   text-decoration: none; color: inherit; position: relative; overflow: hidden;
 }
 .spot::after { content: ""; position: absolute; inset: auto -30% -60% 30%; height: 120%; background: radial-gradient(closest-side, rgba(232,149,46,.18), transparent); pointer-events: none; }
 .spot .k { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--copper); }
-.spot .t { font: 400 26px/1 var(--display); margin: 6px 0 8px; }
-.spot .p { font: 500 17px/1 var(--mono); }
-.spot svg { width: 72px; height: 110px; }
-.spot .photo { width: 72px; height: 110px; object-fit: contain; object-position: 50% 100%; border-radius: 10px; position: relative; z-index: 1; }
+.spot .t { font: 400 22px/1.05 var(--display); margin: 6px 0 8px; }
+.spot .p { font: 500 17px/1 var(--mono); color: var(--torch); }
+.spot .p .rs { font-size: .7em; color: var(--dust); }
+.spot .art { width: 96px; height: 96px; border-radius: 12px; overflow: hidden; position: relative; z-index: 1; background: var(--rock); }
 
-/* Fichas de produto */
-.list { display: grid; gap: 12px; margin-top: 14px; }
+/* Fichas de produto: compactas, foto quadrada à esquerda */
+.list { display: grid; gap: 10px; margin-top: 14px; }
 .card {
-  display: grid; grid-template-columns: 76px 1fr; gap: 14px;
-  background: var(--rock-2); border: 1px solid var(--rock-3); border-radius: 14px; padding: 14px;
+  display: grid; grid-template-columns: 88px 1fr; gap: 12px; align-items: start;
+  background: var(--rock-2); border: 1px solid var(--rock-3); border-radius: 14px; padding: 10px;
 }
-.card .art {
-  display: grid; place-items: end center; border-radius: 10px; min-height: 120px; overflow: hidden;
+.art { width: 88px; height: 88px; border-radius: 12px; overflow: hidden; background: var(--rock); flex: none; }
+.art.ill {
+  display: grid; place-items: end center;
   background:
     radial-gradient(80% 60% at 50% 100%, rgba(232,149,46,.35), transparent 70%),
     linear-gradient(rgba(10,8,7,.55), rgba(10,8,7,.55)),
     repeating-linear-gradient(180deg, var(--pine) 0 22px, var(--pine-dark) 22px 25px);
   box-shadow: inset 0 -3px 0 rgba(232,149,46,.55);
 }
-.card .art svg { width: 66px; height: 120px; }
-.card .art .photo { width: 100%; height: 100%; min-height: 120px; object-fit: contain; object-position: 50% 100%; display: block; }
-.card .body { min-width: 0; display: grid; gap: 6px; align-content: start; }
+.art svg { width: auto; height: 84px; display: block; }
+.art .photo { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block; }
+.card .body { min-width: 0; display: grid; gap: 4px; align-content: start; }
 .head { display: flex; align-items: baseline; gap: 10px; }
-.code { font: 500 12px/1 var(--mono); color: var(--dust); border: 1px solid var(--rock-3); border-radius: 4px; padding: 3px 5px; flex: none; }
-.name { font-weight: 700; font-size: 20px; line-height: 1.15; min-width: 0; flex: 1; text-wrap: balance; }
-.price { font: 500 19px/1 var(--mono); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.meta { display: flex; align-items: baseline; gap: 8px; font-size: 13px; color: var(--dust); }
+.meta > span:last-child { min-width: 0; }
+.code { font: 500 11px/1 var(--mono); color: var(--dust); border: 1px solid var(--rock-3); border-radius: 4px; padding: 3px 5px; flex: none; }
+.name { font-weight: 700; font-size: 17.5px; line-height: 1.15; min-width: 0; flex: 1; text-wrap: balance; }
+.price { font: 500 17px/1 var(--mono); color: var(--torch); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .price .rs { font-size: .68em; color: var(--dust); margin-right: 2px; }
 .old { display: block; text-align: right; font: 500 13px/1 var(--mono); color: var(--dust); text-decoration: line-through; margin-bottom: 4px; }
-.desc { color: var(--dust); font-size: 15.5px; margin: 0; }
-.specs { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 2px 0 0; padding: 0; list-style: none; font-size: 14px; }
-.specs li { color: var(--chalk); }
-.specs li::before { content: "◆"; color: var(--copper); font-size: 9px; margin-right: 6px; vertical-align: 2px; }
+.desc { color: var(--dust); font-size: 14.5px; line-height: 1.35; margin: 0; }
 .chips { display: flex; gap: 6px; flex-wrap: wrap; }
-.chip { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; border: 1px solid var(--rock-3); color: var(--dust); }
+.chip { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; border: 1px solid var(--rock-3); color: var(--dust); }
 .chip.hot { border-color: var(--torch); color: var(--torch); }
 .chip.prov { border-style: dashed; }
-.save { color: var(--copper); font-size: 14px; font-weight: 600; }
+.save { color: var(--copper); font-size: 13.5px; font-weight: 600; }
 
-.avail { display: inline-block; margin-top: 10px; font-size: 14px; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
-.avail.yes { background: rgba(232,149,46,.15); color: var(--torch); }
-.avail.no { background: var(--rock-2); color: var(--dust); border: 1px solid var(--rock-3); }
+/* Tela larga: 2 a 3 colunas e miniaturas de 110 px */
+@media (min-width: 720px) {
+  main.wrap, nav.tabs .wrap { max-width: 1120px; }
+  .list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: start; }
+  .card { grid-template-columns: 110px 1fr; gap: 14px; padding: 12px; }
+  .card .art { width: 110px; height: 110px; }
+  .card .art svg { height: 104px; }
+  .spot { flex-basis: 300px; }
+}
+@media (min-width: 1080px) {
+  .list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
 
 .how { margin-top: 30px; border: 1px dashed var(--rock-3); border-radius: 14px; padding: 14px 16px; display: grid; gap: 4px; }
 .how b { font: 400 22px/1 var(--display); color: var(--torch); }
@@ -337,73 +347,93 @@ footer .wrap { padding-block: 22px 30px; display: grid; gap: 16px; }
   };
 
   // ---------- Catálogo ----------
+  // Preços: edite o campo price de cada item (formato 13.9 = R$ 13,90)
+  // img: foto em img/ (WebP); fit/pos opcionais por item. Sem img, usa a ilustração de art
   // prov: preço ainda não confirmado pelo Vinicius
   // sem price: preço ainda não informado, aparece "Consulte"
   var cats = [
-    { id: 'chopp', tab: 'Chopp', title: 'Chopp', sub: '500 ml · copo', note: 'Tirado na hora, com colarinho.', items: [
-      { code: 'H1', name: 'Chopp Pilsen', price: 13.9, art: 'chopp', desc: 'Chopp pilsen leve e refrescante, no copo de 500 ml, gelado e com colarinho cremoso.', specs: ['Pilsen', '500 ml', 'Copo'], chips: [['hot', 'Novo']] }
+    { id: 'cervejas', tab: 'Chopp e cervejas', title: 'Chopp e cervejas', sub: 'gelada no ponto', note: 'Chopp tirado na hora e cerveja servida trincando.', items: [
+      { code: 'H1', name: 'Chopp Pilsen 500 ml', price: 13.9, img: 'chopp.jpg', fit: 'contain', pos: '50% 100%', alt: 'Copo de chopp com o logo do Caverna', desc: 'Chopp pilsen leve e refrescante, gelado e com colarinho cremoso.', specs: ['Pilsen', '500 ml', 'Copo'], chips: [['hot', 'Novo']] },
+      { code: 'C1', name: 'Antarctica Original 600 ml', price: 15, img: 'img/original-600.webp', alt: 'Garrafa de Antarctica Original 600 ml com copo', desc: 'Puro malte com corpo médio e amargor leve. A clássica de boteco, que vai bem com qualquer petisco.', specs: ['600 ml', 'Puro malte', 'Garrafa'] },
+      { code: 'C2', name: 'Heineken 600 ml', price: 18, img: 'img/heineken-600.webp', alt: 'Garrafa de Heineken 600 ml com copo', desc: 'Lager puro malte de origem holandesa, com final seco e refrescante.', specs: ['600 ml', 'Puro malte', 'Garrafa'], chips: [['hot', 'Destaque']] },
+      { code: 'C3', name: 'Amstel', price: 15, art: 'amstel', desc: 'Lager leve e fácil de beber, para quem vai ficar a noite inteira.', specs: ['Lager', 'Leve'] },
+      { code: 'L1', name: 'Heineken Long Neck', price: 11, img: 'img/heineken-ln.webp', alt: 'Long neck de Heineken', desc: 'A mesma Heineken em garrafa individual. Boa para quem prefere não dividir.', specs: ['Long neck', 'Puro malte'] },
+      { code: 'L2', name: 'Corona Extra Long Neck', price: 12, img: 'img/corona-ln.webp', alt: 'Long neck de Corona Extra com limão', desc: 'Cerveja mexicana leve, servida com uma fatia de limão no gargalo.', specs: ['Long neck', 'Com limão'] }
     ] },
-    { id: 'cervejas', tab: 'Cervejas 600ml', title: 'Cervejas', sub: '600 ml · garrafa', note: 'Garrafa retornável, servida trincando, com copo americano para a mesa.', items: [
-      { code: 'C1', name: 'Original 600 ml', price: 15, art: 'original', desc: 'Puro malte com corpo médio e amargor leve. A clássica de boteco, que vai bem com qualquer petisco.', specs: ['600 ml', 'Puro malte', 'Pilsen', 'Para a mesa toda'] },
-      { code: 'C2', name: 'Heineken 600 ml', price: 15, art: 'heineken', desc: 'Lager puro malte de origem holandesa, com final seco e refrescante.', specs: ['600 ml', 'Puro malte', 'Lager', 'Garrafa verde'], chips: [['hot', 'Destaque']] },
-      { code: 'C3', name: 'Amstel', price: 15, art: 'amstel', desc: 'Lager leve e fácil de beber, para quem vai ficar a noite inteira.', specs: ['Lager', 'Leve'] }
+    { id: 'drinks', tab: 'Drinks e whisky', title: 'Drinks e whisky', sub: 'feitos na hora', note: 'Montados no balcão na hora do pedido.', items: [
+      { code: 'D1', name: 'Caipirinha de cachaça', price: 16, img: 'img/caipirinha.webp', alt: 'Caipirinha de limão no copo do Caverna', desc: 'Limão, açúcar, cachaça e gelo, do jeito clássico.', specs: ['Limão', 'Cachaça'] },
+      { code: 'D2', name: 'Caipirinha de vodka', price: 19, img: 'img/caipirinha.webp', alt: 'Caipirinha de limão no copo do Caverna', desc: 'Limão, açúcar, vodka e gelo.', specs: ['Limão', 'Vodka'] },
+      { code: 'D3', name: 'Covarde', price: 25, img: 'img/covarde.webp', alt: 'Drink Covarde com whisky e laranja', desc: 'Drink à base de whisky.', specs: ['Whisky'], chips: [['hot', 'Da casa']] },
+      { code: 'D4', name: 'Gin Tropical', price: 28, img: 'img/gin-tropical.webp', alt: 'Gin Tropical na taça com laranja e Red Bull Tropical', desc: 'Gin, Red Bull Tropical, laranja e gelo, servido em taça.', specs: ['Gin', 'Red Bull Tropical', 'Taça'] },
+      { code: 'D5', name: 'Jack Daniel’s dose 50 ml', price: 22, img: 'img/jack-daniels.webp', alt: 'Garrafa de Jack Daniel’s com copo de whisky', desc: 'Tennessee whiskey, puro ou com gelo.', specs: ['50 ml', 'Puro ou com gelo'] },
+      { code: 'P1', name: 'Copão de Gin', price: 25, art: 'gin', weekend: true, desc: 'Gin, energético e gelo saborizado no copo de 700 ml com tampa. O sabor muda até o último gole.', specs: ['700 ml', 'Gin', 'Gelo saborizado'], chips: [['hot', 'O mais pedido']] },
+      { code: 'P2', name: 'Copão de Whisky', price: 37, art: 'whisky', weekend: true, desc: 'Whisky Black Label com energético e gelo de coco, no copo de 700 ml com tampa.', specs: ['700 ml', 'Black Label', 'Gelo de coco'], chips: [['', 'Premium']] }
     ] },
-    { id: 'longneck', tab: 'Long neck', title: 'Long neck', sub: '330 ml', note: 'Gelada no ponto, direto do gargalo.', items: [
-      { code: 'L1', name: 'Heineken long neck', price: 9.9, art: 'ln', desc: 'A mesma Heineken em garrafa individual. Boa para quem prefere não dividir.', specs: ['Puro malte', '330 ml'] }
+    { id: 'energeticos', tab: 'Energéticos', title: 'Energéticos', sub: 'lata', note: 'Gelados, para tomar puro ou acompanhar a dose.', items: [
+      { code: 'E1', name: 'Red Bull tradicional 250 ml', price: 12, img: 'img/redbull.webp', alt: 'Lata de Red Bull 250 ml', desc: 'O energético clássico, bem gelado.', specs: ['Lata', '250 ml'] },
+      { code: 'E2', name: 'Red Bull Tropical 250 ml', price: 12, img: 'img/redbull-tropical.webp', alt: 'Lata de Red Bull Tropical 250 ml', desc: 'Red Bull com sabor de frutas tropicais.', specs: ['Lata', '250 ml'] },
+      { code: 'E3', name: 'Monster tradicional', price: 13, img: 'img/monster.webp', alt: 'Lata de Monster Energy', desc: 'Monster Energy original, lata grande.', specs: ['Lata'] },
+      { code: 'E4', name: 'Monster Mango Loco', price: 13, img: 'img/monster-mango.webp', alt: 'Lata de Monster Mango Loco', desc: 'Monster com suco de manga, doce e refrescante.', specs: ['Lata', 'Manga'] }
     ] },
-    { id: 'copoes', tab: 'Copões', title: 'Copões', sub: '700 ml · com tampa', avail: true, note: 'Montados na hora, no copo de 700 ml com tampa e canudo de papel.', items: [
-      { code: 'P1', name: 'Copão de Gin', price: 25, art: 'gin', desc: 'Gin, energético e gelo saborizado. O gelo vai derretendo e o sabor muda até o último gole.', specs: ['Gin', 'Energético', 'Gelo saborizado'], chips: [['hot', 'O mais pedido']] },
-      { code: 'P2', name: 'Copão de Whisky', price: 37, art: 'whisky', desc: 'Whisky Black Label com energético e gelo de coco. Encorpado, gelado e levemente adocicado.', specs: ['Black Label', 'Energético', 'Gelo de coco'], chips: [['', 'Premium']] }
-    ] },
-    { id: 'petiscos', tab: 'Petiscos', title: 'Petiscos', sub: 'para a mesa', note: 'Para acompanhar a bebida. Pergunte no balcão o tamanho da porção.', items: [
-      { code: 'T1', name: 'Dadinho de tapioca', art: 'dadinho', desc: 'Cubinhos de tapioca dourados, crocantes por fora e macios por dentro.', specs: ['Porção', 'Frito'] },
-      { code: 'T2', name: 'Xoripan', art: 'xoripan', desc: 'Linguiça grelhada no pão, no estilo argentino.', specs: ['Sanduíche', 'Grelhado'] },
+    { id: 'porcoes', tab: 'Porções', title: 'Porções', sub: 'para a mesa', note: 'Para acompanhar a bebida. Pergunte no balcão o tamanho da porção.', items: [
+      { code: 'T1', name: 'Dadinhos crocantes com molho', price: 24.9, img: 'img/dadinhos.webp', alt: 'Porção de dadinhos crocantes com molho', desc: 'Cubinhos de tapioca dourados, crocantes por fora e macios por dentro, com molho para acompanhar.', specs: ['Porção', 'Frito', 'Com molho'] },
+      { code: 'T2', name: 'Pão com carne e chimichurri', price: 29.9, img: 'img/pao-chimichurri.webp', alt: 'Pão com carne grelhada e chimichurri na tábua', desc: 'Pão tostado com carne grelhada fatiada e chimichurri.', specs: ['Na tábua', 'Grelhado'] },
       { code: 'T3', name: 'Guacamole', art: 'guacamole', desc: 'Pasta de abacate temperada, para comer com chips.', specs: ['Para dividir'] },
       { code: 'T4', name: 'Tábua de frios', art: 'tabua', desc: 'Seleção de frios servida na tábua, para beliscar com a turma.', specs: ['Para dividir', 'Tábua'] }
     ] },
     { id: 'combos', tab: 'Combos', title: 'Combos', sub: 'para a mesa', note: 'Pague menos pedindo junto.', items: [
-      { code: 'K1', name: 'Balde Long Neck', price: 45, from: 49.5, art: 'balde', desc: '5 Heineken long neck no balde com gelo.', specs: ['5 × 330 ml', 'Balde com gelo'], prov: true },
+      { code: 'K1', name: 'Balde Long Neck', price: 45, from: 55, art: 'balde', desc: '5 Heineken long neck no balde com gelo.', specs: ['5 long necks', 'Balde com gelo'], prov: true },
       { code: 'K2', name: 'Trio 600', price: 42, from: 45, art: 'trio', desc: '3 cervejas 600 ml à sua escolha (Original, Heineken ou Amstel), podendo misturar.', specs: ['3 × 600 ml', 'Mistura liberada'], prov: true },
-      { code: 'K3', name: 'Dupla de Copão', price: 45, from: 50, art: 'duo', desc: '2 copões de gin, cada um com o gelo saborizado que quiser. Só de sexta a domingo.', specs: ['2 × 700 ml', 'Sex a dom'], prov: true }
+      { code: 'K3', name: 'Dupla de Copão', price: 45, from: 50, art: 'duo', weekend: true, desc: '2 copões de gin, cada um com o gelo saborizado que quiser.', specs: ['2 × 700 ml'], prov: true }
     ] },
     { id: 'semalcool', tab: 'Sem álcool', title: 'Sem álcool', sub: '', note: 'Para quem está dirigindo ou só quer se refrescar.', items: [
       { code: 'S1', name: 'Água mineral', price: 5, art: 'agua', desc: 'Garrafa de 500 ml, gelada.', specs: ['500 ml'], prov: true },
       { code: 'S2', name: 'Coca-Cola 2 L', price: 16, art: 'coca', desc: 'Garrafa de 2 litros para dividir na mesa, com copos.', specs: ['2 L', 'Para dividir'], prov: true }
     ] }
   ];
+  // destaques: apontam para itens do catálogo pelo código (preço e foto vêm do item)
   var spots = [
-    { k: 'Novo', t: 'Chopp Pilsen', p: 13.9, art: 'chopp', href: '#chopp' },
-    { k: 'O mais pedido', t: 'Copão de Gin', p: 25, art: 'gin', href: '#copoes' },
-    { k: 'Combo', t: 'Balde Long Neck', p: 45, art: 'balde', href: '#combos' },
-    { k: 'Trincando', t: 'Heineken 600', p: 15, art: 'heineken', href: '#cervejas' },
-    { k: 'Premium', t: 'Copão de Whisky', p: 37, art: 'whisky', href: '#copoes' }
+    { k: 'Novo', code: 'H1' },
+    { k: 'Da casa', code: 'D3' },
+    { k: 'Na taça', code: 'D4' },
+    { k: 'Trincando', code: 'C2' },
+    { k: 'Para dividir', code: 'T2' }
   ];
 
   function brl(v) { return v.toFixed(2).replace('.', ','); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function thumb(it) {
+    // foto real (img) ou ilustração (art); fit e pos permitem ajustar cada produto sem cortar nem esticar
+    if (!it.img) return art[it.art];
+    var st = (it.fit ? 'object-fit:' + it.fit + ';' : '') + (it.pos ? 'object-position:' + it.pos + ';' : '');
+    return '<img class="photo" src="' + it.img + '" alt="' + esc(it.alt || it.name) + '" width="110" height="110" loading="lazy" decoding="async"' + (st ? ' style="' + st + '"' : '') + '>';
+  }
+  var byCode = {};
+  cats.forEach(function (c) { c.items.forEach(function (it) { it.cat = c.id; byCode[it.code] = it; }); });
 
   var day = new Date().getDay();
   var weekend = day === 5 || day === 6 || day === 0;
 
   var html = '<section id="destaques" style="padding-top:22px"><h2>Destaques <span class="sub">da casa</span></h2><div class="rail">';
   spots.forEach(function (s) {
-    html += '<a class="spot" href="' + s.href + '"><div><div class="k">' + esc(s.k) + '</div><div class="t">' + esc(s.t) + '</div><div class="p"><span class="rs" style="font-size:.7em;color:var(--dust)">R$</span> ' + brl(s.p) + '</div></div>' + art[s.art] + '</a>';
+    var it = byCode[s.code];
+    html += '<a class="spot" href="#' + it.cat + '"><div><div class="k">' + esc(s.k) + '</div><div class="t">' + esc(it.name) + '</div><div class="p"><span class="rs">R$</span> ' + brl(it.price) + '</div></div><div class="art">' + thumb(it) + '</div></a>';
   });
   html += '</div></section>';
 
   cats.forEach(function (c) {
     html += '<section id="' + c.id + '"><h2>' + esc(c.title) + (c.sub ? ' <span class="sub">' + esc(c.sub) + '</span>' : '') + '</h2>';
-    if (c.avail) html += '<span class="avail ' + (weekend ? 'yes' : 'no') + '">' + (weekend ? '● Saindo hoje' : 'Só de sexta a domingo') + '</span>';
     if (c.note) html += '<p class="note">' + esc(c.note) + '</p>';
     html += '<div class="list">';
     c.items.forEach(function (it) {
       var chips = (it.chips || []).map(function (ch) { return '<span class="chip ' + ch[0] + '">' + esc(ch[1]) + '</span>'; });
+      if (it.weekend) chips.push(weekend ? '<span class="chip hot">● Saindo hoje</span>' : '<span class="chip">Só sex a dom</span>');
       if (it.prov) chips.push('<span class="chip prov">Preço provisório</span>');
-      html += '<article class="card"><div class="art">' + art[it.art] + '</div><div class="body">' +
-        '<div class="head"><span class="code">' + it.code + '</span><span class="name">' + esc(it.name) + '</span>' +
+      html += '<article class="card"><div class="art' + (it.img ? '' : ' ill') + '">' + thumb(it) + '</div><div class="body">' +
+        '<div class="head"><span class="name">' + esc(it.name) + '</span>' +
         '<span class="price">' + (it.price == null ? '<span class="rs">Consulte</span>' : (it.from ? '<span class="old">' + brl(it.from) + '</span>' : '') + '<span class="rs">R$</span>' + brl(it.price)) + '</span></div>' +
         '<p class="desc">' + esc(it.desc) + '</p>' +
-        (it.specs ? '<ul class="specs">' + it.specs.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul>' : '') +
+        '<div class="meta"><span class="code">' + it.code + '</span>' + (it.specs ? '<span>' + it.specs.map(esc).join(' · ') + '</span>' : '') + '</div>' +
         (it.from ? '<div class="save">Economia de R$ ' + brl(it.from - it.price) + '</div>' : '') +
         (chips.length ? '<div class="chips">' + chips.join('') + '</div>' : '') +
         '</div></article>';
